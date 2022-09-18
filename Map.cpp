@@ -1,52 +1,43 @@
 #include "Map.h"
-#include "Floor.h"   
-#include "Money.h"
-#include "Wall.h"
 
 void Map::init() {
 
 	player = new Player(Vector2f(70, 70), "images/player1.png");
 
-	for (int i = 0; i < HEIGHT_MAP; i++) {
+	for (int i = 0; i < HEIGHT_MAP; i++) {// ���� �� ������ �����
 
-		for (int j = 0; j < WIDTH_MAP; j++) {
+		for (int j = 0; j < WIDTH_MAP; j++)
 
-			if (TileMap[i][j] == 'm') {
+		{// ���� �� ������ �����
+			if (TileMap[i][j] == 'm') {// ���� ��������� �������
 
-				Floor* floor = new Floor(Vector2f(j*60, i*60), "images/floor.png");
+				Floor* floor = new Floor(Vector2f(j * 60, i * 60), "images/floor.png");// �������� ���
 
-				entities.push_back(floor);
+				entities.push_back(floor);// ������� ��� � ������ 
 
-				Money* money = new Money(Vector2f(j*60 , i*60), "images/coin.png");
+				Money* money = new Money(Vector2f(j * 60, i * 60), "images/coin.png");// �������� �������
 
-				entities.push_back(money);
-
-			}
-
-			if (TileMap[i][j] == 'g') {
-
-				Floor* floor = new Floor(Vector2f(j*60, i*60), "images/floor.png");
-
-				entities.push_back(floor);
+				entities.push_back(money);// ������� � � ������
 
 			}
 
-			if (TileMap[i][j] == 'k') {
+			if (TileMap[i][j] == 'g') {// ���� ��������� ��� 
 
-				Wall* wall= new Wall(Vector2f(j*60, i*60), "images/brick.png");
+				Floor* floor = new Floor(Vector2f(j * 60, i * 60), "images/floor.png");// ������ ���
 
-				entities.push_back(wall);
+				entities.push_back(floor);// ��������� ��� � ������
 
 			}
+			if (TileMap[i][j] == 'k') {// ���� ��������� ����� 
 
-			mapSprite.setPosition(j * 60, i * 60);
+				Wall* wall = new Wall(Vector2f(j * 60, i * 60), "images/brick.png");// ������ �����
 
-			window.draw(mapSprite);
+				entities.push_back(wall);//��������� � � ������
+
+			}
 
 		}
-
 	}
-
 }
 
 Map::Map() {
@@ -58,7 +49,30 @@ Map::Map() {
 void Map::update() {
 
 	player->update();
+	//FloatRect playerCollider = player->getSprite().getGlobalBounds();
+	for (auto it = entities.begin(); it != entities.end();) {
+		FloatRect playerCollider = player->getSprite().getGlobalBounds();
+		FloatRect otherCollider = (*it)->getSprite().getGlobalBounds();
 
+		if (playerCollider.intersects(otherCollider) && (*it)->getName() == "money") {// ���� ����� ���������� � �������� 
+			entities.erase(it++);//������� �������
+		}
+		else if (playerCollider.intersects(otherCollider) && (*it)->getName() == "wall") {// ���� ����� ���������� �� ������ 
+
+			player->setSpeed(Vector2f(-player->getSpeed().x, -player->getSpeed().y));// ����������� ������
+
+			player->update();// ��������� �������
+
+			it++;
+
+		}
+		else {// ���� �� �� � ��� �� �����������
+
+			it++;// ������� �� ��������� ������ ������
+
+		}
+
+	}
 }
 
 Player* Map::getPlayer() {
@@ -69,35 +83,10 @@ Player* Map::getPlayer() {
 
 void Map::draw(RenderWindow& window) {
 
-	for (auto it = entities.begin(); it != entities.end();it++){
+	for (auto it = entities.begin(); it != entities.end(); it++) {// ���� �� ������� �������� 
 		window.draw((*it)->getSprite());
 	}
 
-	/*for (int i = 0; i < HEIGHT_MAP; i++) {
-
-		for (int j = 0; j < WIDTH_MAP; j++) {
-
-			if (TileMap[i][j] == 's') {
-
-				mapSprite.setTextureRect(IntRect(0, 0, 60, 60));
-
-			}
-
-			if (TileMap[i][j] == 'g') {
-
-				mapSprite.setTextureRect(IntRect(60 * 0, 60 * 1, 60, 60));
-
-			}
-
-			mapSprite.setPosition(j * 60, i * 60);
-
-			window.draw(mapSprite);
-
-		}
-
-	}*/
-	window.draw(coin->getSprite());//��������� �������
-
-	window.draw(player->getSprite());// ��������� ������
+	window.draw(player->getSprite());
 
 }
