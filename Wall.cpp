@@ -9,6 +9,6 @@ void Wall::init(){
 
 Wall::Wall(Vector2f position, String imagePath): Entity(imagePath){
     init();
-    setPosition();
+    setPosition(position);
     setName("wall");
 }
