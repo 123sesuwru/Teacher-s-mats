@@ -49,7 +49,7 @@ Map::Map() {
 void Map::update() {
 
 	player->update();
-	//FloatRect playerCollider = player->getSprite().getGlobalBounds();
+	FloatRect playerCollider = player->getSprite().getGlobalBounds();
 	for (auto it = entities.begin(); it != entities.end();) {
 		FloatRect playerCollider = player->getSprite().getGlobalBounds();
 		FloatRect otherCollider = (*it)->getSprite().getGlobalBounds();

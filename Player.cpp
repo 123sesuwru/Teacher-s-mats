@@ -16,11 +16,11 @@ void Player::init() {
 
 	width = 80;// ������ ������ 
 
-	height = 120;// ������ ������ 
+	height = 100;// ������ ������ 
 
 	setSpeed(Vector2f(0, 0));// ������ �������� 
 
-	setTextureRect(IntRect(0, 0, 80, 120)); //������ ������ �� ������
+	setTextureRect(IntRect(0, 0, width, height)); //������ ������ �� ������
 
 }
 
