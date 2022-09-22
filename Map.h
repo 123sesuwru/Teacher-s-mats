@@ -4,17 +4,16 @@
 
 #include "Player.h"
 
-#include "Money.h"//���������� ������������ ���� �������
+#include "Money.h"//���������� ������������ ���� ������� 
 
-#include "Wall.h"
+#include "Wall.h"// ��������� Wall.h 
 
-#include "Floor.h"
+#include "Floor.h"// ��������� Floor.h
 
-#include <list>
-
-using namespace std; 
+#include<list>// ��������� ����
 
 using namespace sf;
+using namespace std;// ���������� ������������ ��� std 
 
 const int WINDOW_WIDTH = 1260;
 
@@ -36,37 +35,37 @@ public:
 	void update();
 
 private:
-	sf::String TileMap[HEIGHT_MAP] = {
+	String TileMap[HEIGHT_MAP] = {
 
-"kkkkkkkkkkkkkkkkkkkkk",
+		"kkkkkkkkkkkkkkkkkkkkk",
 
-"kggggggggmggggkgmkgmk",
+		"kggggggggmggggkgmkgmk",
 
-"kgggggggggggggkggkggk",
+		"kgggggggggggggkggkggk",
 
-"kgggggkkkkkgggkggkggk",
+		"kgggggkkkkkgggkggkggk",
 
-"kkkkkkkgmgkgggkggkggk",
+		"kkkkkkkgmgkgggkggkggk",
 
-"kgggggggggkgggkggkggk",
+		"kgggggggggkgggkggkggk",
 
-"kgggggggggkgggkggkggk",
+		"kgggggggggkgggkggkggk",
 
-"kggkkkkkkkkgggkggkggk",
+		"kggkkkkkkkkgggkggkggk",
 
-"kggggggggggggggggkggk",
+		"kggggggggggggggggkggk",
 
-"kggggggmgggggggmggggk",
+		"kggggggmgggggggmggggk",
 
-"kgggggggggggggggggggk",
+		"kgggggggggggggggggggk",
 
-"kmgkkkkkkkkkkkkkkkkkk"
+		"kmgkkkkkkkkkkkkkkkkkk"
 
 	};
 
 	Player* player;
 
-	list<Entity*> entities;
+	list<Entity*> entities;// ������ ���������� �� ����� Entity 
 
 	void init();
 };
